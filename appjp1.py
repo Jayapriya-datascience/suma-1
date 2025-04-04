@@ -2,6 +2,7 @@ import streamlit as st
 import pickle
 import numpy as np
 import os
+import joblib  # Use joblib instead of pickle for loading scaler
 
 # CSS for Multi-Color Blinking Effect
 multi_color_blink_css = """
@@ -40,18 +41,11 @@ if not os.path.exists(scaler_path):
 with open(model_path, "rb") as model_file:
     model = pickle.load(model_file)
 
-import joblib  # Use joblib instead of pickle for loading scaler
+with open(scaler_path, "rb") as scaler_file:
+    scaler = pickle.load(scaler_file)
 
-scaler_path = os.path.join("modeljp15", "scalerjp2.pkl")
 
-try:
-    scaler = joblib.load(scaler_path)  # Proper way to load the scaler
-    if not hasattr(scaler, "transform"):  # Check if the object is a valid scaler
-        raise TypeError("Loaded scaler is not a valid scaler object.")
-    print("✅ Scaler loaded successfully and ready to transform data!")
-except Exception as e:
-    st.error(f"❌ Error loading scaler: {e}")
-    st.stop()
+
 
 # Title
 st.markdown(
