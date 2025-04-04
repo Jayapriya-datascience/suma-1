@@ -2,7 +2,6 @@ import streamlit as st
 import pickle
 import numpy as np
 import os
-import joblib  # Use joblib instead of pickle for loading scaler
 
 # CSS for Multi-Color Blinking Effect
 multi_color_blink_css = """
